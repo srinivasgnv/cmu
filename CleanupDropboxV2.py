@@ -39,32 +39,32 @@ print(usedSpace)
 print('Threshold set to in MB')
 print(MAXSZ)
 if usedSpace >= MAXSZ:
-    # delete the contents of /Backup
-    print('Started Deleting /Backup')
-    res=dbx.files_list_folder('/Backup')
+    # delete the contents of LONGTERM
+    print('Started Deleting LONGTERM')
+    res=dbx.files_list_folder('LONGTERM')
     for entry in res.entries:
-        fileName='/Backup/'+entry.name
+        fileName='LONGTERM/'+entry.name
         dbx.files_delete(fileName)
-    print('Completed Deleting /Backup')
+    print('Completed Deleting LONGTERM')
 
-# get number of files in /East-1
+# get number of files in SHORTTERM
 # if number >=4K
-#  move all /East-1 files to /Backup
+#  move all SHORTTERM files to LONGTERM
 
-res=dbx.files_list_folder('/East-1')
+res=dbx.files_list_folder('SHORTTERM')
 for entry in res.entries:
     count=count+1
 
-print('Total number of files in /East-1 ')
+print('Total number of files in SHORTTERM ')
 print(count)
 print('Threshold set to ')
 print(MAXCOUNT)
 if count >= MAXCOUNT:
-    # move all files from /East-1 to /Backup
-    print('Started Moving files from /East-1')
-    res=dbx.files_list_folder('/East-1')
+    # move all files from SHORTTERM to LONGTERM
+    print('Started Moving files from SHORTTERM')
+    res=dbx.files_list_folder('SHORTTERM')
     for entry in res.entries:
-        fromFile='/East-1/'+entry.name
-        toFile='/Backup/'+entry.name
+        fromFile='SHORTTERM/'+entry.name
+        toFile='LONGTERM/'+entry.name
         dbx.files_move(fromFile,toFile)
-    print('Completed moving files to /Backup')
+    print('Completed moving files to LONGTERM')
