@@ -1,7 +1,8 @@
-# This program is for automatically manage the files when you use your
-# dropbox account to manage the repository for automatic upload of files
-# This program checks your drop box for the following
-# 1. If the total used sapce exceeds the threshold set delete the
+# This program is to automatically manage the dropbox account
+# this will be called from node-red on regular intervals
+# When files are automatically uploaded it is required to clean up
+# This program checks your drop box account for the following
+# 1. If the total used sapce exceeds the threshold set then delete the
 # LONGTERM folder contents (this will help keep the account sleek)
 # 2. If the total number of files in SHORTTERM folder exceeds the threshold
 # set in MAXCOUNT then move the files to LONGTERM (this will enable loading
@@ -17,13 +18,19 @@ import time
 import unicodedata
 import dropbox
 
+# update your drop box token below
 TOKEN='TOKEN'
+
+# We have two folders the keep the files that are automatically uploaded
 SHORTTERM='/Shorterm'
 LONGTERM='/Longterm'
+
 # set maxsz i.e threshold for total quota used in MB
 MAXSZ=200
+
 # set MAXCOUNT i.e number of files in shortterm
 MAXCOUNT=500
+
 count=0
 
 dbx=dropbox.Dropbox(TOKEN)
