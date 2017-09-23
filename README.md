@@ -13,4 +13,4 @@ This program makes sure your Raspberry Pi's internal memory does not get
 filled up and moves the logs to a connected external mounted hard disk
 
 #node-red flow
-This is the central program to manager all the orchestration 
+This is the central program to manager all the orchestration
