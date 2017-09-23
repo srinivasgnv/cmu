@@ -1,4 +1,6 @@
 #!/bin/sh
+# Move all the logs from Pi to external disk
+# this will be called from node-red on regular intervals 
 
 ts=`date +"%d-%m-%y-%T"`
 SRC="/home/pi/"
