@@ -70,9 +70,11 @@ if count >= MAXCOUNT:
     # move all files from SHORTTERM to LONGTERM
     print('Started Moving files from SHORTTERM')
     res=dbx.files_list_folder('SHORTTERM')
+    count=1
     for entry in res.entries:
         fromFile='SHORTTERM/'+entry.name
         toFile='LONGTERM/'+entry.name
+        print "%d - %s" %(count,fromFile)
         dbx.files_move(fromFile,toFile)
     print('Completed moving files to LONGTERM')
 #
