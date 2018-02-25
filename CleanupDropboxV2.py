@@ -1,3 +1,4 @@
+# This program needs python and dropbox libs to execute. Use "pip install dropbox" 
 # This program is to automatically manage the dropbox account
 # this will be called from node-red on regular intervals
 # When files are automatically uploaded it is required to clean up
@@ -22,8 +23,8 @@ import dropbox
 TOKEN='TOKEN'
 
 # We have two folders the keep the files that are automatically uploaded
-SHORTTERM='/Shorterm'
-LONGTERM='/Longterm'
+SHORTTERM='/REPLACE_THIS_WITH_SHORTTERM_DIR/'
+LONGTERM='/REPLACE_THIS_WITH_LONGTERM_DIR/'
 
 # set maxsz i.e threshold for total quota used in MB
 MAXSZ=200
@@ -47,34 +48,35 @@ print('Threshold set to in MB')
 print(MAXSZ)
 if usedSpace >= MAXSZ:
     # delete the contents of LONGTERM
-    print('Started Deleting LONGTERM')
-    res=dbx.files_list_folder('LONGTERM')
+    print('Started Deleting', LONGTERM)
+    res=dbx.files_list_folder(LONGTERM)
     for entry in res.entries:
-        fileName='LONGTERM/'+entry.name
+        fileName=LONGTERM+entry.name
+	print(fileName)
         dbx.files_delete(fileName)
-    print('Completed Deleting LONGTERM')
+    print('Completed Deleting', LONGTERM)
 
 # get number of files in SHORTTERM
 # if number >=4K
 #  move all SHORTTERM files to LONGTERM
 
-res=dbx.files_list_folder('SHORTTERM')
+res=dbx.files_list_folder(SHORTTERM)
 for entry in res.entries:
     count=count+1
 
-print('Total number of files in SHORTTERM ')
+print('Total number of files in', SHORTTERM)
 print(count)
 print('Threshold set to ')
 print(MAXCOUNT)
 if count >= MAXCOUNT:
     # move all files from SHORTTERM to LONGTERM
-    print('Started Moving files from SHORTTERM')
-    res=dbx.files_list_folder('SHORTTERM')
+    print('Started Moving files from', SHORTTERM)
+    res=dbx.files_list_folder(SHORTTERM)
     count=1
     for entry in res.entries:
-        fromFile='SHORTTERM/'+entry.name
-        toFile='LONGTERM/'+entry.name
+        fromFile=SHORTTERM+entry.name
+        toFile=LONGTERM+entry.name
         print "%d - %s" %(count,fromFile)
         dbx.files_move(fromFile,toFile)
-    print('Completed moving files to LONGTERM')
+    print('Completed moving files to', LONGTERM)
 #
